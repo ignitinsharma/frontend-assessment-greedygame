@@ -6,11 +6,18 @@ import { fetchNames } from "../../Redux/action";
 const AnalyticsTable = ({ data, visibleColumns }) => {
   const dispatch = useDispatch();
   const dataNames = useSelector((store) => store.data.name.data);
-  console.log('dataNames:', dataNames)
-  // console.log("data: from names", dataNames.name.data);
+  console.log("dataNames:", dataNames);
+
   useEffect(() => {
     dispatch(fetchNames());
   }, []);
+
+  // This function will comparing id and then returing the name if Match
+  const getAppNameById = (appId) => {
+    const matchedName = dataNames.find((item) => item.app_id == appId);
+    return matchedName ? matchedName.app_name : "";
+  };
+
   return (
     <table className="w-full border-collapse border">
       <thead>
@@ -26,7 +33,7 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
         {data.data.data?.map((row, index) => (
           <tr key={index} className="border text-center">
             <td>{formatDate(row.date)}</td>
-            <td>{}name</td>
+            <td>{getAppNameById(row.app_id)}</td>
             <td>{row.clicks}</td>
             <td>{row.requests}</td>
             <td>$ {Math.floor(row.revenue)}</td>
