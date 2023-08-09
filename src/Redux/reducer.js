@@ -2,12 +2,13 @@ const initialState = {
   data: [],
   name: [],
   visibleColumns: [
-    "Date",
+    "date",
     "App Name",
-    "Clicks",
-    "AD Request",
-    "Revenue",
-    "Impression",
+    "clicks",
+    "requests",
+    "revenue",
+    "responses",
+    "impressions",
   ],
   // ... other initial state properties
 };
