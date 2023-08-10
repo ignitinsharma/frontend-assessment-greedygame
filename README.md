@@ -1,6 +1,7 @@
 # Flight Reservation App - Pratilipi
 
-Analytics webapp where you can check about the company's detials clicks, request, revenue, response, impressions and many more
+Welcome to the Analytics Web App, a powerful tool designed to provide detailed insights into various aspects of your company's performance. With this web application, you can effortlessly track and analyze key metrics, including clicks, requests, revenue, responses, impressions, and much more. Gain valuable insights into your company's operations and make data-driven decisions for continued success.
+make this decripiton 1 or 2 line long.
 
 ## Deployed Link
 
