@@ -43,7 +43,7 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
 
   // Get Name from api matching the ID
   const getAppNameById = (appId) => {
-    const matchedName = dataNames.find((item) => item.app_id == appId);
+    const matchedName = dataNames?.find((item) => item.app_id == appId);
     return matchedName ? matchedName.app_name : "";
   };
 

@@ -24,13 +24,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         name: action.payload,
       };
-    case "TOGGLE_COLUMN":
-      return {
-        ...state,
-        visibleColumns: state.visibleColumns.includes(action.payload)
-          ? state.visibleColumns.filter((col) => col !== action.payload)
-          : [...state.visibleColumns, action.payload],
-      };
     default:
       return state;
   }
