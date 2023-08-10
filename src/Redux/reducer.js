@@ -10,7 +10,6 @@ const initialState = {
     "responses",
     "impressions",
   ],
-  // ... other initial state properties
 };
 
 const reducer = (state = initialState, action) => {

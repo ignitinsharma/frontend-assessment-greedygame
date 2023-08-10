@@ -7,7 +7,6 @@ import DateRangePicker from "../DateRangePicker/DateRangePicker";
 const AnalyticsTable = ({ data, visibleColumns }) => {
   const [visibleColumnsState, setVisibleColumnsState] =
     useState(visibleColumns);
-  const [draggedColumn, setDraggedColumn] = useState(null); // Track the dragged column
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   const dataNames = useSelector((store) => store.data.name.data);
@@ -24,7 +23,6 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
 
   const handleApplyChanges = () => {
     setToggle(false);
-    // Dispatch an action to update the Redux store with the new visibleColumnsState.
   };
 
   const handleDateRangeChange = (startDate, endDate) => {
@@ -49,32 +47,6 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
     return matchedName ? matchedName.app_name : "";
   };
 
-  // drag and drop
-  const handleDragStart = (e, column) => {
-    e.dataTransfer.setData("text/plain", column);
-    setDraggedColumn(column);
-  };
-
-  // Drag over event handler
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  // Drop event handler
-  const handleDrop = (e, targetColumn) => {
-    e.preventDefault();
-
-    const newColumnsState = visibleColumnsState.slice(); // Clone the array
-    const draggedColumnIndex = newColumnsState.indexOf(draggedColumn);
-    const targetColumnIndex = newColumnsState.indexOf(targetColumn);
-
-    // Swap the positions of the dragged and target columns
-    newColumnsState[draggedColumnIndex] = targetColumn;
-    newColumnsState[targetColumnIndex] = draggedColumn;
-
-    setVisibleColumnsState(newColumnsState);
-    setDraggedColumn(null); // Clear the dragged column
-  };
   return (
     <div>
       <div className="w-[95%] m-auto">
@@ -84,10 +56,15 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
             Settings
           </div>
         </div>
-        <div>
+        <div
+          className={`m-auto ${toggle ? "toggle-transition" : "toggle-hidden"}`}
+        >
           {toggle ? (
             <>
-              <div className="flex gap-6 py-4 text-transform: capitalize my-[1rem]">
+              <p className="font-semibold mt-4 mb-[-6px] text-[13px]">
+                Dimensions and Metrics
+              </p>
+              <div className="flex gap-6 py-4 text-transform: capitalize mb-[1rem]">
                 {visibleColumns?.map((column) => (
                   <div
                     key={column}
@@ -97,10 +74,6 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
                         : "border-l-[5px] border-white"
                     } cursor-pointer`}
                     onClick={() => handleToggleColumn(column)}
-                    draggable
-                    onDragStart={(e) => handleDragStart(e, column)}
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => handleDrop(e, column)}
                   >
                     {column}
                   </div>
@@ -109,7 +82,10 @@ const AnalyticsTable = ({ data, visibleColumns }) => {
               <div className="flex justify-end mb-[1rem]">
                 <button
                   className="px-4 py-2 bg-white-500 text-blue-500 rounded border-2 border-grey-500 mr-2"
-                  onClick={() => setVisibleColumnsState(visibleColumns)}
+                  onClick={() => {
+                    setVisibleColumnsState(visibleColumns);
+                    setToggle(false);
+                  }}
                 >
                   Cancel
                 </button>
